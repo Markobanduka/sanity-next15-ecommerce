@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  createCheckoutSession,
+  Metadata,
+} from "@/actions/createCheckoutSession";
 import AddToBasketButton from "@/components/AddToBasketButton";
 import Loader from "@/components/Loader";
 import { imageUrl } from "@/lib/imageUrl";
@@ -8,13 +12,6 @@ import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-export type Metadata = {
-  orderNumber: string;
-  customerNumber: string;
-  customerEmail: string;
-  clerkUserId: string;
-};
 
 const BasketPage = () => {
   const groupedItems = useBasketStore((state) => state.getGroupedItems());
@@ -54,9 +51,12 @@ const BasketPage = () => {
         clerkUserId: user!.id,
       };
 
-      // const checkoutUrl = await createCheckSession
+      const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      }
     } catch (error) {
-      console.log(error);
+      console.log("Error creating checkout session:", error);
     } finally {
       setIsLoading(false);
     }
