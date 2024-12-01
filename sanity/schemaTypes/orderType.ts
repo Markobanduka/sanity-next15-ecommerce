@@ -135,10 +135,15 @@ export const orderType = defineType({
       email: "email",
     },
     prepare(select) {
-      const orderIdSnippet = `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`;
+      const orderIdSnippet = select.orderId
+        ? `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`
+        : "No Order ID";
+      const customerName = select.name || "Unnamed Customer";
       return {
-        title: `${select.name} (${orderIdSnippet})`,
-        subtitle: `${select.amount} ${select.currency} - ${select.email}`,
+        title: `${customerName} (${orderIdSnippet})`,
+        subtitle: `${select.amount || 0} ${select.currency || ""} - ${
+          select.email || "No Email"
+        }`,
         media: BasketIcon,
       };
     },
