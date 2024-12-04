@@ -38,7 +38,7 @@ export async function createCheckoutSession(
 
     const baseUrl =
       process.env.NODE === "production"
-        ? `https://${process.env.VERCEL_URL}`
+        ? "https://sanity-next15-ecommerce.vercel.app"
         : `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
     const successUrl = `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`;
