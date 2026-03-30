@@ -31,6 +31,7 @@ export function CategorySelectorComponent({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          data-test="category-selector-button"
           variant="outline"
           role="combobox"
           aria-expanded={open}
@@ -45,6 +46,7 @@ export function CategorySelectorComponent({
       <PopoverContent className="w-full p-0">
         <Command>
           <CommandInput
+            data-test="command-input"
             placeholder="Search category..."
             className="h-9"
             onKeyDown={(e) => {

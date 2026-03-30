@@ -51,8 +51,8 @@ const ProductPage = async ({
 
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-            to
+            <h1 className="text-3xl font-bold mb-">{product.name}</h1>
+            
             <div className="text-xl font-semibold mb-4">
               AED {product.price?.toFixed(2)}
             </div>
