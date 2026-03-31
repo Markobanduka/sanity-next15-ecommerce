@@ -25,6 +25,7 @@ const AddToBasketButton = ({ product, disabled }: AddToBasketButtonProps) => {
   return (
     <div className="flex items-center justify-center space-x-2">
       <button
+        data-test="remove-from-basket-button"
         onClick={() => removeItem(product._id)}
         className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${
           itemCount === 0
@@ -34,6 +35,7 @@ const AddToBasketButton = ({ product, disabled }: AddToBasketButtonProps) => {
         disabled={itemCount === 0 || disabled}
       >
         <span
+
           className={`text-xl font-bold ${
             itemCount === 0 ? "text-gray-400" : "text-gray-600"
           }`}
@@ -41,8 +43,9 @@ const AddToBasketButton = ({ product, disabled }: AddToBasketButtonProps) => {
           -
         </span>
       </button>
-      <span className="w-8 h-8 text-center font-semibold">{itemCount}</span>
+      <span data-test="item-count" className="w-8 h-8 text-center font-semibold">{itemCount}</span>
       <button
+        data-test="add-to-basket-button"
         onClick={() => addItem(product)}
         className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${
           disabled

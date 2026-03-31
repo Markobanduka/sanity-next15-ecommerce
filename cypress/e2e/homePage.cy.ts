@@ -45,10 +45,51 @@ describe('Home page display all products correctly', () => {
      })
 
      it.only('Add products to basket and display correct count', () => {
-      cy.getDataTest('product-name').first().contains(/bag with mat/i)
+      cy.getDataTest('product-name').as('productName')
+      cy.get('@productName').first().contains(/bag with mat/i)
       cy.getDataTest('product-description').first().contains(/enhance your fitness/i)
       cy.getDataTest('product-grid').children().should('have.length', 11).first().click()
+
       cy.location('pathname').should('include', 'product/bag-with-mat')
-      
+      cy.getDataTest('basket-icon').should('be.visible')
+      cy.getDataTest('search-input').should('be.visible')
+      cy.getDataTest('logo-link').should('contain.text', 'Kallos')
+      cy.getDataTest('product-image').should('be.visible').and('have.attr', 'src').should('include', 'cdn.sanity.io')
+      cy.get('@productName').contains(/bag with mat/i).should('be.visible')
+      cy.getDataTest('product-price').should('contain.text', 'AED 230.00')
+      cy.getDataTest('product-description').should('be.visible').and('not.be.empty')
+      cy.getDataTest('basket-count').should('contain.text', '0')
+      cy.getDataTest('item-count').should('contain.text', '0')
+      cy.getDataTest('add-to-basket-button').click()
+      cy.getDataTest('item-count').should('contain.text', '1')
+      cy.getDataTest('basket-count').should('contain.text', '1')
+      cy.getDataTest('basket-link').click()
+
+      cy.location('pathname').should('include', 'basket')
+      cy.getDataTest('basket-product-image').should('be.visible').and('have.attr', 'src').should('include', 'cdn.sanity.io')
+      cy.getDataTest('basket-product-name').contains(/bag with mat/i).should('be.visible')
+      cy.getDataTest('basket-product-price').should('contain.text', 'AED 230.00')
+      cy.getDataTest('basket-count').should('contain.text', '1')
+      cy.getDataTest('order-summary-items').should('contain.text', '1')
+      cy.getDataTest('order-summary-total').should('contain.text', 'AED 230.00')
+      cy.getDataTest('checkout-button').should('be.visible')
+
+      cy.getDataTest('add-to-basket-button').click()
+      cy.getDataTest('item-count').should('contain.text', '2')
+      cy.getDataTest('basket-count').should('contain.text', '2')
+
+      cy.getDataTest('order-summary-items').should('contain.text', '2')
+      cy.getDataTest('order-summary-total').should('contain.text', 'AED 460.00')
+
+
+      cy.getDataTest('remove-from-basket-button').click().click()
+      cy.getDataTest('your-basket').should('be.visible')
+      cy.getDataTest('empty-basket-message').should('be.visible')
+      cy.getDataTest('item-count').should('not.exist')
+      cy.getDataTest('basket-count').should('contain.text', '0')
+      cy.getDataTest('order-summary-items').should('not.exist')
+      cy.getDataTest('order-summary-total').should('not.exist')
+
+
      })
 })

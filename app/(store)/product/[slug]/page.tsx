@@ -36,6 +36,7 @@ const ProductPage = async ({
         >
           {product.image && (
             <Image
+              data-test="product-image"
               src={imageUrl(product.image).url()}
               alt={product.name || "Product image"}
               fill
@@ -51,12 +52,12 @@ const ProductPage = async ({
 
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-">{product.name}</h1>
+            <h1 data-test="product-name" className="text-3xl font-bold mb-8">{product.name}</h1>
             
-            <div className="text-xl font-semibold mb-4">
+            <div data-test="product-price" className="text-xl font-semibold mb-4">
               AED {product.price?.toFixed(2)}
             </div>
-            <div className="prose max-w-none mb-6">
+            <div data-test="product-description" className="prose max-w-none mb-6">
               {Array.isArray(product.description) && (
                 <PortableText value={product.description} />
               )}

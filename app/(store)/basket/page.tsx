@@ -81,6 +81,7 @@ const BasketPage = () => {
                 <div className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 mr-4">
                   {item.product.image && (
                     <Image
+                      data-test="basket-product-image"
                       src={imageUrl(item.product.image).url()}
                       alt={item.product.name || "Product image"}
                       className="w-full h-full object-cover rounded"
@@ -90,10 +91,10 @@ const BasketPage = () => {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <h2 className="text-lg sm:text-xl font-semibold truncate">
+                  <h2 data-test="basket-product-name" className="text-lg sm:text-xl font-semibold truncate">
                     {item.product.name}
                   </h2>
-                  <p className="text-sm sm:text-base">
+                  <p data-test="basket-product-price" className="text-sm sm:text-base">
                     Price: AED{" "}
                     {((item.product.price ?? 0) * item.quantity).toFixed(2)}
                   </p>
@@ -106,17 +107,17 @@ const BasketPage = () => {
           ))}
         </div>
         <div className="w-full lg:w-80 lg:sticky lg:top h-fit bg-white p-6 border rounded order-first lg:order-last fixed bottom-0 left-0 lg:left-auto">
-          <h3 className="text-xl font-semibold">Order Summary</h3>
+          <h3 data-test="order-summary" className="text-xl font-semibold">Order Summary</h3>
           <div className="mt-4 space-y-2">
             <p className="flex justify-between">
               <span>Items:</span>
-              <span>
+              <span data-test="order-summary-items">
                 {groupedItems.reduce((total, item) => total + item.quantity, 0)}
               </span>
             </p>
             <p className="flex justify-between text-2xl font-bold border-t pt-2">
               <span>Total:</span>
-              <span>
+              <span data-test="order-summary-total">
                 AED {useBasketStore.getState().getTotalPrice().toFixed(2)}
               </span>
             </p>
@@ -124,6 +125,7 @@ const BasketPage = () => {
 
           {isSignedIn ? (
             <button
+              
               onClick={handleCheckout}
               disabled={isLoading}
               className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
@@ -132,7 +134,7 @@ const BasketPage = () => {
             </button>
           ) : (
             <SignInButton mode="modal">
-              <button className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+              <button data-test="checkout-button" className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                 Sign in to Checkout
               </button>
             </SignInButton>
