@@ -45,9 +45,10 @@ describe('Home page display all products correctly', () => {
      })
 
      it.only('Add products to basket and display correct count', () => {
-      cy.getDataTest('product-grid').children().should('have.length', 11)
+      cy.getDataTest('product-name').first().contains(/bag with mat/i)
+      cy.getDataTest('product-description').first().contains(/enhance your fitness/i)
+      cy.getDataTest('product-grid').children().should('have.length', 11).first().click()
+      cy.location('pathname').should('include', 'product/bag-with-mat')
+      
      })
 })
-
-// nokar25646@flownue.com
-// H3g0m1234
